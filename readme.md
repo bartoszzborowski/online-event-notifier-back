@@ -1,3 +1,3 @@
 # Online Event Notifer Backend
 
-[a relative link](opis_projektu.pdf)
+[Opis projektu](opis_projektu.pdf)

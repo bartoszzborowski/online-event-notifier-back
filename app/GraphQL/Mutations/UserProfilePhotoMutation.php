@@ -34,6 +34,5 @@ class UserProfilePhotoMutation extends Mutation
     {
         $file = $args['profilePicture'];
 
-        // Do something with file here...
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\GraphQL\Types;
+namespace App\GraphQL\Types\Output;
 
 use App\Models\User;
 use GraphQL\Type\Definition\Type;

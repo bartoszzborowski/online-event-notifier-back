@@ -5,6 +5,15 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use ScoutElastic\Searchable;
 
+/**
+ * App\MyModel
+ *
+ * @property \ScoutElastic\Highlight|null $highlight
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\MyModel newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\MyModel newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\MyModel query()
+ * @mixin \Eloquent
+ */
 class MyModel extends Model
 {
     use Searchable;

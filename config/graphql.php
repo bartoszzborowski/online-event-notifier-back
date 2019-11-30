@@ -139,6 +139,9 @@ return [
         \App\GraphQL\Types\Input\UpdateUserType::class,
         \App\GraphQL\Types\Output\EventType::class,
         \App\GraphQL\Types\Output\UserType::class,
+
+        //Enum
+        \App\GraphQL\Type\Enum\EventTypeEnum::class
     ],
 
     // The types will be loaded on demand. Default is to load all types on each request

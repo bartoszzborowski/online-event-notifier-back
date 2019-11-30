@@ -2,10 +2,11 @@
 
 namespace App\GraphQL\Types\Input;
 
+use App\GraphQL\Type\Enum\EventTypeEnum;
 use App\Models\Event;
-use App\Models\User;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Facades\GraphQL;
 
 class EventType extends GraphQLType
 {
@@ -43,7 +44,7 @@ class EventType extends GraphQLType
                 'type' => Type::string()
             ],
             self::FIELD_EVENT_TYPE => [
-                'type' => Type::int()
+                'type' => GraphQL::type(EventTypeEnum::TYPE_NAME)
             ],
             self::FIELD_FEE => [
                 'type' => Type::float()

@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\GraphQL\Types\UserType;
+use App\GraphQL\Types\Output\UserType;
 use CLosure;
 use App\Models\User;
 use GraphQL\Type\Definition\Type;

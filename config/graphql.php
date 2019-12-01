@@ -101,8 +101,14 @@ return [
                 'users' => App\GraphQL\Queries\UsersQuery::class
             ],
             'mutation' => [
-                'updateUserPassword' => App\GraphQL\Mutations\UpdateUserPasswordMutation::class,
-                'userLogin' => App\GraphQL\Mutations\LoginUser::class
+                App\GraphQL\Mutations\UpdateUserPasswordMutation::class,
+                \App\GraphQL\Mutations\LoginUser::class,
+                \App\GraphQL\Mutations\CreateEvent::class,
+                \App\GraphQL\Mutations\CreateUser::class,
+                \App\GraphQL\Mutations\DeleteEvent::class,
+                \App\GraphQL\Mutations\DeleteUser::class,
+                \App\GraphQL\Mutations\UpdateEvent::class,
+                \App\GraphQL\Mutations\UpdateUser::class,
             ],
             'middleware' => [],
             'method'     => ['get', 'post'],
@@ -126,9 +132,16 @@ return [
 
     'types' => [
         \Rebing\GraphQL\Support\UploadType::class,
-        'UserType' => App\GraphQL\Types\UserType::class,
-        'UserLoginInputType' => App\GraphQL\Types\UserLoginType::class,
-        'ReviewInput' => ReviewInput::class
+        \App\GraphQL\Types\Input\UserLoginType::class,
+        \App\GraphQL\Types\Input\EventType::class,
+        \App\GraphQL\Types\Input\UpdateEventType::class,
+        \App\GraphQL\Types\Input\UserType::class,
+        \App\GraphQL\Types\Input\UpdateUserType::class,
+        \App\GraphQL\Types\Output\EventType::class,
+        \App\GraphQL\Types\Output\UserType::class,
+
+        //Enum
+        \App\GraphQL\Type\Enum\EventTypeEnum::class
     ],
 
     // The types will be loaded on demand. Default is to load all types on each request

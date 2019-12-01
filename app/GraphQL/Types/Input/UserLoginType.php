@@ -1,6 +1,6 @@
 <?php
 
-namespace App\GraphQL\Types;
+namespace App\GraphQL\Types\Input;
 
 use App\Models\User;
 use Rebing\GraphQL\Support\Type as GraphQLType;

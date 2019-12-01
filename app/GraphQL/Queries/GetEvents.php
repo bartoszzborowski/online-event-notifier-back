@@ -2,23 +2,23 @@
 
 namespace App\GraphQL\Queries;
 
-use App\GraphQL\Types\Output\UserType;
-use App\Models\Event;
+use App\GraphQL\Types\Output\EventType;
+use App\Models\User;
 use Closure;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
 
-class UsersQuery extends Query
+class GetEvents extends Query
 {
     protected $attributes = [
-        'name' => 'users'
+        'name' => 'events'
     ];
 
     public function type(): Type
     {
-        return Type::listOf(GraphQL::type(UserType::TYPE_NAME));
+        return Type::listOf(GraphQL::type(EventType::TYPE_NAME));
     }
 
     public function args(): array
@@ -33,12 +33,12 @@ class UsersQuery extends Query
     {
 //        if (isset($args['id'])) {
 //            return User::where('id' , $args['id'])->get();
-//        }
-//
-//        if (isset($args['email'])) {
-//            return User::where('email', $args['email'])->get();
-//        }
+////        }
+////
+////        if (isset($args['email'])) {
+////            return User::where('email', $args['email'])->get();
+////        }
 
-        return Event::all();
+        return User::all();
     }
 }

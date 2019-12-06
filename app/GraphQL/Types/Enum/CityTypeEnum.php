@@ -3,22 +3,21 @@
 namespace App\GraphQL\Type\Enum;
 
 use Rebing\GraphQL\Support\Type as GraphQLType;
-use App\Models\EventType;
 
-class EventTypeEnum extends GraphQLType
+class CityTypeEnum extends GraphQLType
 {
-    const TYPE_NAME = 'EnumEventTypesType';
+    const TYPE_NAME = 'EnumCityTypesType';
 
     protected $enumObject = true;
 
     protected $attributes = [
         'name' => self::TYPE_NAME,
-        'description' => 'Types of employer interview feeling',
+        'description' => 'Types of city',
         'values' => 
         // EventType::all()->pluck('id','name')->flip()->toArray(),
          [   
-            'pop'=>'1',
-           'rock'=>'2'
+            'Warszawa'=>'1',
+           'Krakow'=>'2'
         ]
     ];
 }

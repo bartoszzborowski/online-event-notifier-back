@@ -5,6 +5,8 @@ use App\Repository\UserRepository;
 use GraphQL\Type\Definition\Type as GraphqlType;
 use Rebing\GraphQL\Support\Mutation;
 use GraphQL\Type\Definition\Type;
+use App\Models\Event;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class DeleteEvent extends Mutation
 {
@@ -42,7 +44,12 @@ class DeleteEvent extends Mutation
 
     public function resolve($root, $args)
     {
-
-        throw new \Exception('Error login');
+        $Event = Event::find($args['event_id'])->first();
+        // dd($Event->first()->user_id);
+        if($Event->user_id == JWTAuth::user()->id){
+            return $Event->delete();
+        }else{
+            throw new \Exception('Error during delete event');
+        }
     }
 }

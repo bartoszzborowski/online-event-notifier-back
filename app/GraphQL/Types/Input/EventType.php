@@ -3,6 +3,7 @@
 namespace App\GraphQL\Types\Input;
 
 use App\GraphQL\Type\Enum\EventTypeEnum;
+use App\GraphQL\Type\Enum\CityTypeEnum;
 use App\Models\Event;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 use GraphQL\Type\Definition\Type;
@@ -12,6 +13,7 @@ class EventType extends GraphQLType
 {
     const TYPE_NAME = 'EventInputType';
 
+    const FIELD_ID = 'id';
     const FIELD_ADDRESS = 'address';
     const FIELD_CITY_ID = 'city_id';
     const FIELD_DESCRIPTION = 'description';
@@ -31,11 +33,14 @@ class EventType extends GraphQLType
     public function fields(): array
     {
         return [
+            self::FIELD_ID => [
+                'type' => Type::string()
+            ],
             self::FIELD_ADDRESS => [
                 'type' => Type::string()
             ],
             self::FIELD_CITY_ID => [
-                'type' => Type::int()
+                'type' => GraphQL::type(CityTypeEnum::TYPE_NAME)
             ],
             self::FIELD_DESCRIPTION => [
                 'type' => Type::string()

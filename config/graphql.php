@@ -141,7 +141,8 @@ return [
         \App\GraphQL\Types\Output\UserType::class,
 
         //Enum
-        \App\GraphQL\Type\Enum\EventTypeEnum::class
+        \App\GraphQL\Type\Enum\EventTypeEnum::class,
+        \App\GraphQL\Type\Enum\CityTypeEnum::class
     ],
 
     // The types will be loaded on demand. Default is to load all types on each request

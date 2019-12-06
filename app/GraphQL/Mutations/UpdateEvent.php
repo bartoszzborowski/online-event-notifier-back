@@ -4,6 +4,9 @@ namespace App\GraphQL\Mutations;
 use App\Constants\GraphQL as GraphQLConstant;
 use App\GraphQL\Types\Input\UpdateEventType;
 use Rebing\GraphQL\Support\Facades\GraphQL;
+use App\Models\Event;
+use Illuminate\Support\Arr;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UpdateEvent extends CreateEvent
 {
@@ -20,9 +23,24 @@ class UpdateEvent extends CreateEvent
         ];
     }
 
+    public function rules(array $args = []): array
+    {
+        $input = GraphQLConstant::INPUT_ARG_NAME . '.';
+
+        return [
+            $input . UpdateEventType::FIELD_ID => ['required'],
+        ];
+    }
+    
     public function resolve($root, $args)
     {
 
-        throw new \Exception('Error login');
+        $args = Arr::get($args, 'input');
+        $Event= Event::find($args['id']);
+        if($Event->user_id == JWTAuth::user()->id){
+            return $Event->update($args); //tu cos musze zmienic aby nie wyrzucalo errora po dobrej zmianie
+        }else{
+            throw new \Exception('Error during update event');
+        }
     }
 }

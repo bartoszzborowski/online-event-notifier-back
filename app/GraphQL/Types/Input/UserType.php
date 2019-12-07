@@ -3,8 +3,10 @@
 namespace App\GraphQL\Types\Input;
 
 use App\Models\User;
+use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 use GraphQL\Type\Definition\Type;
+use App\GraphQL\Type\Enum\CityTypeEnum;
 
 class UserType extends GraphQLType
 {
@@ -39,7 +41,8 @@ class UserType extends GraphQLType
                 'type' => Type::string()
             ],
             self::FIELD_BASE_CITY => [
-                'type' => Type::int()
+                // 'type' => Type::int()
+                'type' => GraphQL::type(CityTypeEnum::TYPE_NAME)
             ],
         ];
     }

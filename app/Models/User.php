@@ -102,4 +102,10 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->email;
     }
+    
+    public function getAdmin()
+    {
+        return $this->admin;
+    }
+
 }

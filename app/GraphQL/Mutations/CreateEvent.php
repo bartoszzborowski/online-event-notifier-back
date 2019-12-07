@@ -68,8 +68,8 @@ class CreateEvent extends Mutation
         if($created = Event::create($args)){
             return $created;
         }else{
-            throw new \Exception('Error during create event');
-
+            throw new \Exception('Error:1 during create event');
         }
+        throw new \Exception('Error:2 during create event');
     }
 }

@@ -46,10 +46,12 @@ class DeleteEvent extends Mutation
     {
         $Event = Event::find($args['event_id'])->first();
         // dd($Event->first()->user_id);
-        if($Event->user_id == JWTAuth::user()->id){
+
+        if($Event->user_id == JWTAuth::user()->id or JWTAuth::user()->getAdmin()){
             return $Event->delete();
         }else{
-            throw new \Exception('Error during delete event');
+            throw new \Exception('Error:1 during delete event');
         }
+        throw new \Exception('Error:2 during delete event');
     }
 }

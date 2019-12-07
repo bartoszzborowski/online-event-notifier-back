@@ -9,6 +9,9 @@ use App\Repository\UserRepository;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use GraphQL\Type\Definition\Type as GraphqlType;
 use Rebing\GraphQL\Support\Mutation;
+use Illuminate\Support\Arr;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class CreateUser extends Mutation
 {
@@ -54,6 +57,15 @@ class CreateUser extends Mutation
 
     public function resolve($root, $args)
     {
+        $args = Arr::get($args, 'input');
+         User::create([
+            'name' => $args['name'],
+            'surname' => $args['surname'],
+            'email' => $args['email'],
+            'base_city' => $args['base_city'],
+            'admin'=> 0,
+            'password' => Hash::make($args['password']),
+        ]);
 
         throw new \Exception('Register not successful');
     }

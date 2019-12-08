@@ -63,7 +63,7 @@ class CreateUser extends Mutation
             'surname' => $args['surname'],
             'email' => $args['email'],
             'base_city' => $args['base_city'],
-            'admin'=> 0,
+            'admin'=> "0",
             'password' => Hash::make($args['password']),
         ]);
 

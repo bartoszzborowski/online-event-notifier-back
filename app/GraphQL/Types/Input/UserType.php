@@ -17,6 +17,7 @@ class UserType extends GraphQLType
     const FIELD_NAME = 'name';
     const FIELD_SURNAME= 'surname';
     const FIELD_BASE_CITY = 'base_city';
+    const FIELD_ADMIN = 'admin';
 
     protected $inputObject = true;
 
@@ -43,6 +44,9 @@ class UserType extends GraphQLType
             self::FIELD_BASE_CITY => [
                 // 'type' => Type::int()
                 'type' => GraphQL::type(CityTypeEnum::TYPE_NAME)
+            ],
+            self::FIELD_ADMIN => [
+                'type' => Type::boolean()
             ],
         ];
     }

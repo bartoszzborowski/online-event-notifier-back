@@ -36,7 +36,7 @@ class UpdateEvent extends CreateEvent
     {
 
         $args = Arr::get($args, 'input');
-        $Event= Event::find($args['id']);
+        $Event= Event::findOrFail($args['id']);
         if($Event->user_id == JWTAuth::user()->id or JWTAuth::user()->getAdmin()){
             return $Event->update($args); //tu cos musze zmienic aby nie wyrzucalo errora po dobrej zmianie
         }else{

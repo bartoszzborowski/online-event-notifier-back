@@ -12,27 +12,28 @@ class UserType extends GraphQLType
     const TYPE_NAME = 'UserType';
 
     protected $attributes = [
-        'name'        => self::TYPE_NAME,
+        'name' => self::TYPE_NAME,
         'description' => 'A user',
-        'model'       => User::class,
+        'model' => User::class,
     ];
 
     public function fields(): array
     {
         return [
-            'id'    => [
-                'type'        => Type::nonNull(Type::string()),
+            'id' => [
+                'type' => Type::nonNull(Type::string()),
                 'description' => 'The id of the user',
             ],
             'email' => [
-                'type'        => Type::string(),
+                'type' => Type::string(),
                 'description' => 'The email of user',
-                'privacy'     => function (array $args): bool {
-                    return $args['id'] == Auth::id();
-                }
             ],
-            'token'  => [
-                'type'        => Type::string(),]
+            'admin' => [
+                'type' => Type::boolean()
+            ],
+            'token' => [
+                'type' => Type::string(),
+            ]
         ];
     }
 

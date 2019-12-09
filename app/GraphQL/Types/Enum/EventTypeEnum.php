@@ -14,12 +14,12 @@ class EventTypeEnum extends GraphQLType
     protected $attributes = [
         'name' => self::TYPE_NAME,
         'description' => 'Types of employer interview feeling',
-        'values' => 
-        // EventType::all()->pluck('id','name')->flip()->toArray(),
-         [   
-            'pop'=>'1',
-           'rock'=>'2'
-        ]
     ];
+
+    public function __construct()
+    {
+         $evensType = EventType::all()->pluck('id','name')->flip()->toArray();
+         $this->attributes['values'] = $evensType;
+    }
 }
 

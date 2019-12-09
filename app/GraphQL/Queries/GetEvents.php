@@ -2,15 +2,16 @@
 
 namespace App\GraphQL\Queries;
 
+use App\GraphQL\BaseMutation;
 use App\GraphQL\Types\Output\EventType;
-use App\Models\User;
+use App\Models\Event;
 use Closure;
+use Illuminate\Support\Arr;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
-use Rebing\GraphQL\Support\Query;
 
-class GetEvents extends Query
+class GetEvents extends BaseMutation
 {
     protected $attributes = [
         'name' => 'events'
@@ -24,21 +25,25 @@ class GetEvents extends Query
     public function args(): array
     {
         return [
-            'id' => ['name' => 'id', 'type' => Type::string()],
-            'email' => ['name' => 'email', 'type' => Type::string()]
+            'id' => ['name' => 'id', 'type' => Type::int()],
+            'user' => ['name' => 'byUser', 'type' => Type::boolean()],
         ];
     }
 
     public function resolve($root, $args, $context, ResolveInfo $resolveInfo, Closure $getSelectFields)
     {
-//        if (isset($args['id'])) {
-//            return User::where('id' , $args['id'])->get();
-////        }
-////
-////        if (isset($args['email'])) {
-////            return User::where('email', $args['email'])->get();
-////        }
+        $inputArgs = Arr::get($args, 'input');
+        $id = Arr::get($inputArgs, 'id');
+        $user = Arr::get($inputArgs, 'user');
 
-        return User::all();
+        if($user) {
+            return Event::whereUserId($this->currentUser->id)->all();
+        }
+
+        if($id) {
+            return Event::whereId($id)->all();
+        }
+
+        return Event::all();
     }
 }

@@ -18,7 +18,7 @@ class EventTypeEnum extends GraphQLType
 
     public function __construct()
     {
-         $evensType = EventType::all()->pluck('id','name')->flip()->toArray();
+         $evensType = EventType::all()->pluck('id','name')->toArray();
          $this->attributes['values'] = $evensType;
     }
 }

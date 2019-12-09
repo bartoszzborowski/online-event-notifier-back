@@ -18,7 +18,7 @@ class CityTypeEnum extends GraphQLType
 
     public function __construct()
     {
-        $cities =City::all()->pluck('id','slug')->flip()->toArray();
+        $cities = City::all()->pluck('id','slug')->toArray();
         $this->attributes['values'] = $cities;
     }
 }

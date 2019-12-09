@@ -57,9 +57,6 @@ class EventType extends GraphQLType
             self::FIELD_NAME => [
                 'type' => Type::string()
             ],
-            self::FIELD_USER_ID => [
-                'type' => Type::int()
-            ],
         ];
     }
 }

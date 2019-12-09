@@ -99,6 +99,11 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    public function getAuthIdentifierName() : string
+    {
+        return 'email';
+    }
+
     public function getEmail()
     {
         return $this->email;

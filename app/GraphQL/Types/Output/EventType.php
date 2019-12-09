@@ -4,7 +4,6 @@ namespace App\GraphQL\Types\Output;
 
 use App\Models\Event;
 use GraphQL\Type\Definition\Type;
-use Illuminate\Support\Facades\Auth;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
 class EventType extends GraphQLType
@@ -20,18 +19,29 @@ class EventType extends GraphQLType
     {
         return [
             'id' => [
-                'type' => Type::nonNull(Type::string()),
-                'description' => 'The id of the user',
+                'type' => Type::nonNull(Type::int()),
             ],
-            'email' => [
+            'event_type' => [
                 'type' => Type::string(),
-                'description' => 'The email of user',
-                'privacy' => function (array $args): bool {
-                    return $args['id'] == Auth::id();
-                }
             ],
-            'token' => [
-                'type' => Type::string(),]
+            'user_id' => [
+                'type' => Type::string(),
+            ],
+            'address' => [
+                'type' => Type::string(),
+            ],
+            'name' => [
+                'type' => Type::string(),
+            ],
+            'description' => [
+                'type' => Type::string(),
+            ],
+            'fee' => [
+                'type' => Type::string(),
+            ],
+            'event_date' => [
+                'type' => Type::string(),
+            ]
         ];
     }
 }

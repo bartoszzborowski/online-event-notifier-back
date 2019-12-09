@@ -98,7 +98,8 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-                'users' => App\GraphQL\Queries\UsersQuery::class
+                'users' => App\GraphQL\Queries\UsersQuery::class,
+                \App\GraphQL\Queries\GetEvents::class
             ],
             'mutation' => [
                 App\GraphQL\Mutations\UpdateUserPasswordMutation::class,

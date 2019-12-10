@@ -1,6 +1,7 @@
 <?php
 
 namespace App\GraphQL\Mutations;
+
 use App\Repository\UserRepository;
 use GraphQL\Type\Definition\Type as GraphqlType;
 use Rebing\GraphQL\Support\Mutation;
@@ -25,13 +26,13 @@ class DeleteEvent extends Mutation
 
     public function type(): GraphqlType
     {
-        return GraphqlType::int();
+        return GraphqlType::boolean();
     }
 
     public function args(): array
     {
         return [
-            ['name' => 'event_id', 'type' => GraphqlType::listOf(Type::int())]
+            ['name' => 'event_id', 'type' => Type::int()]
         ];
     }
 
@@ -44,11 +45,12 @@ class DeleteEvent extends Mutation
 
     public function resolve($root, $args)
     {
-        $Event = Event::find($args['event_id'])->first();
-        // dd($Event->first()->user_id);
-        if($Event->user_id == JWTAuth::user()->id){
-            return $Event->delete();
-        }else{
+        /** @var Event $event */
+        $event = Event::whereId($args['event_id'])->first();
+
+        try {
+            $event->delete();
+        } catch (\Exception $e) {
             throw new \Exception('Error during delete event');
         }
     }

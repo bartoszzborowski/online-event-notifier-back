@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Types\Output;
 
+use App\Models\City;
 use App\Models\Event;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Type as GraphQLType;
@@ -24,6 +25,9 @@ class EventType extends GraphQLType
             'event_type' => [
                 'type' => Type::string(),
             ],
+            'city_id' => [
+                'type' => Type::string(),
+            ],
             'user_id' => [
                 'type' => Type::string(),
             ],
@@ -43,5 +47,15 @@ class EventType extends GraphQLType
                 'type' => Type::string(),
             ]
         ];
+    }
+
+    protected function resolveEventTypeField($root, $args)
+    {
+        return \App\Models\EventType::whereId($root->event_type)->pluck('name')->first();
+    }
+
+    protected function resolveCityIdField($root, $args)
+    {
+        return City::whereId($root->city_id)->pluck('slug')->first();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Type\Enum;
 
+use App\Models\City;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
 class CityTypeEnum extends GraphQLType
@@ -13,12 +14,12 @@ class CityTypeEnum extends GraphQLType
     protected $attributes = [
         'name' => self::TYPE_NAME,
         'description' => 'Types of city',
-        'values' => 
-        // EventType::all()->pluck('id','name')->flip()->toArray(),
-         [   
-            'Warszawa'=>'1',
-           'Krakow'=>'2'
-        ]
     ];
+
+    public function __construct()
+    {
+        $cities = City::all()->pluck('id','slug')->toArray();
+        $this->attributes['values'] = $cities;
+    }
 }
 

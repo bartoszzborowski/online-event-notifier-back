@@ -3,46 +3,41 @@
 namespace App\GraphQL\Queries;
 
 use App\GraphQL\BaseMutation;
-use App\GraphQL\Types\Output\EventType;
-use App\Models\Event;
+use App\GraphQL\Types\Output\LocationType;
+use App\Models\City;
 use Closure;
 use Illuminate\Support\Arr;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 
-class GetEvents extends BaseMutation
+class GetLocations extends BaseMutation
 {
     protected $attributes = [
-        'name' => 'events'
+        'name' => 'locations'
     ];
 
     public function type(): Type
     {
-        return Type::listOf(GraphQL::type(EventType::TYPE_NAME));
+        return Type::listOf(GraphQL::type(LocationType::TYPE_NAME));
     }
 
     public function args(): array
     {
         return [
             'id' => ['name' => 'id', 'type' => Type::int()],
-            'user' => ['name' => 'byUser', 'type' => Type::boolean()],
         ];
     }
 
     public function resolve($root, $args, $context, ResolveInfo $resolveInfo, Closure $getSelectFields)
     {
-        $id = Arr::get($args, 'id');
-        $user = Arr::get($args, 'user');
-
-        if($user) {
-            return Event::whereUserId($this->currentUser->id)->get();
-        }
+        $inputArgs = Arr::get($args, 'input');
+        $id = Arr::get($inputArgs, 'id');
 
         if($id) {
-            return Event::whereId($id)->get();
+            return City::whereId($id)->all();
         }
 
-        return Event::all();
+        return City::all();
     }
 }

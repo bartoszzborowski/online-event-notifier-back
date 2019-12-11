@@ -67,6 +67,7 @@ class LoginUser extends Mutation
 
         if ($user && $token = auth()->attempt($credentials)) {
             $user['token'] = $token;
+
             return $user;
         }
         throw new \Exception('Error login');

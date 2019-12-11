@@ -6,7 +6,7 @@ use GraphQL\Type\Definition\Type;
 
 class UpdateEventType extends EventType
 {
-    const TYPE_NAME = 'UpdateUserInputType';
+    const TYPE_NAME = 'UpdateEventInputType';
 
     const FIELD_ID = 'id';
 

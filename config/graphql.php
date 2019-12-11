@@ -98,7 +98,10 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-                'users' => App\GraphQL\Queries\UsersQuery::class
+                'users' => App\GraphQL\Queries\UsersQuery::class,
+                \App\GraphQL\Queries\GetEvents::class,
+                \App\GraphQL\Queries\GetLocations::class,
+                \App\GraphQL\Queries\GetEventType::class,
             ],
             'mutation' => [
                 App\GraphQL\Mutations\UpdateUserPasswordMutation::class,
@@ -139,6 +142,8 @@ return [
         \App\GraphQL\Types\Input\UpdateUserType::class,
         \App\GraphQL\Types\Output\EventType::class,
         \App\GraphQL\Types\Output\UserType::class,
+        \App\GraphQL\Types\Output\LocationType::class,
+        \App\GraphQL\Types\Output\EventTypeType::class,
 
         //Enum
         \App\GraphQL\Type\Enum\EventTypeEnum::class,

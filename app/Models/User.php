@@ -76,6 +76,7 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'admin' => 'boolean',
     ];
 
     /**
@@ -96,6 +97,11 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function getAuthIdentifierName() : string
+    {
+        return 'email';
     }
 
     public function getEmail()

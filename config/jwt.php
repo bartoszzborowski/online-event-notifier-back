@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+use App\Models\User;
+
 return [
 
     /*
@@ -101,7 +103,7 @@ return [
     |
     */
 
-    'ttl' => env('JWT_TTL', 60),
+    'ttl' => env('JWT_TTL', 120),
 
     /*
     |--------------------------------------------------------------------------
@@ -255,6 +257,31 @@ return [
 
     'decrypt_cookies' => false,
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | User Model namespace
+    |--------------------------------------------------------------------------
+    |
+    | Specify the full namespace to your User model.
+    | e.g. 'Acme\Entities\User'
+    |
+    */
+
+    'user' => User::class,
+
+    /*
+    |--------------------------------------------------------------------------
+    | User identifier
+    |--------------------------------------------------------------------------
+    |
+    | Specify a unique property of the user that will be added as the 'sub'
+    | claim of the token payload.
+    |
+    */
+
+    'identifier' => 'email',
+
     /*
     |--------------------------------------------------------------------------
     | Providers
@@ -268,6 +295,18 @@ return [
 
         /*
         |--------------------------------------------------------------------------
+        | User Provider
+        |--------------------------------------------------------------------------
+        |
+        | Specify the provider that is used to find the user based
+        | on the subject claim
+        |
+        */
+
+        'user' => 'Tymon\JWTAuth\Providers\User\EloquentUserAdapter',
+
+        /*
+        |--------------------------------------------------------------------------
         | JWT Provider
         |--------------------------------------------------------------------------
         |
@@ -275,7 +314,7 @@ return [
         |
         */
 
-        'jwt' => Tymon\JWTAuth\Providers\JWT\Lcobucci::class,
+        'jwt' => 'Tymon\JWTAuth\Providers\JWT\Namshi',
 
         /*
         |--------------------------------------------------------------------------
@@ -286,18 +325,18 @@ return [
         |
         */
 
-        'auth' => Tymon\JWTAuth\Providers\Auth\Illuminate::class,
+        'auth' => 'Tymon\JWTAuth\Providers\Auth\Illuminate',
 
         /*
         |--------------------------------------------------------------------------
         | Storage Provider
         |--------------------------------------------------------------------------
         |
-        | Specify the provider that is used to store tokens in the blacklist.
+        | Specify the provider that is used to store tokens in the blacklist
         |
         */
 
-        'storage' => Tymon\JWTAuth\Providers\Storage\Illuminate::class,
+        'storage' => 'Tymon\JWTAuth\Providers\Storage\Illuminate',
 
     ],
 

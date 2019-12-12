@@ -33,8 +33,8 @@ class GetEvents extends BaseMutation
     public function resolve($root, $args, $context, ResolveInfo $resolveInfo, Closure $getSelectFields)
     {
         $id = Arr::get($args, 'id');
-        $user = Arr::get($args, 'user');
-
+        $user = Arr::get($args, 'byUser');
+        
         if($user) {
             return Event::whereUserId($this->currentUser->id)->get();
         }

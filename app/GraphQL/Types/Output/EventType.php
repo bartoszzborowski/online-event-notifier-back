@@ -45,8 +45,17 @@ class EventType extends GraphQLType
             ],
             'event_date' => [
                 'type' => Type::string(),
+            ],
+            'attendance_counter' => [
+                'type' => Type::int(),
             ]
+
         ];
+    }
+
+    protected function resolveAttendanceCounterField($root, $args)
+    {
+        return $root->members->count() ?? 0;
     }
 
     protected function resolveEventTypeField($root, $args)

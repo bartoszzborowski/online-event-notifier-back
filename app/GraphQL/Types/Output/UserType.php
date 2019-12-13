@@ -4,7 +4,7 @@ namespace App\GraphQL\Types\Output;
 
 use App\Models\User;
 use GraphQL\Type\Definition\Type;
-use Illuminate\Support\Facades\Auth;
+use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
 class UserType extends GraphQLType
@@ -33,6 +33,9 @@ class UserType extends GraphQLType
             ],
             'token' => [
                 'type' => Type::string(),
+            ],
+            'events' => [
+                'type' => Type::listOf(GraphQL::type(EventType::TYPE_NAME)),
             ]
         ];
     }

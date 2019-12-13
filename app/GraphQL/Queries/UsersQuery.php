@@ -3,7 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\GraphQL\Types\Output\UserType;
-use App\Models\Event;
+use App\Models\User;
 use Closure;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -31,14 +31,14 @@ class UsersQuery extends Query
 
     public function resolve($root, $args, $context, ResolveInfo $resolveInfo, Closure $getSelectFields)
     {
-//        if (isset($args['id'])) {
-//            return User::where('id' , $args['id'])->get();
-//        }
-//
-//        if (isset($args['email'])) {
-//            return User::where('email', $args['email'])->get();
-//        }
+        if (isset($args['id'])) {
+            return User::whereId( $args['id'])->get();
+        }
 
-        return Event::all();
+        if (isset($args['email'])) {
+            return User::whereEmail($args['email'])->get();
+        }
+
+        return User::all();
     }
 }

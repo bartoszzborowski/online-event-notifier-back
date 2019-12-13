@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Article;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +19,12 @@ Route::get('/', function () {
 });
 
 Route::get('/article', function () {
-    $test = Article::search('aut dolores')->select(['title', 'body']);
-
-    dd($test->get());
+    $users = User::all();
+    dd($users->toArray());
+    $users->each(function ($user) {
+       if($user->events->isNotEmpty()) {
+           dd($user->toArray());
+       }
+    });
 
 });

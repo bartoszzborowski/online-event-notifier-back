@@ -112,6 +112,7 @@ return [
                 \App\GraphQL\Mutations\DeleteUser::class,
                 \App\GraphQL\Mutations\UpdateEvent::class,
                 \App\GraphQL\Mutations\UpdateUser::class,
+                \App\GraphQL\Mutations\AttendToEvent::class,
             ],
             'middleware' => [],
             'method'     => ['get', 'post'],
@@ -144,6 +145,7 @@ return [
         \App\GraphQL\Types\Output\UserType::class,
         \App\GraphQL\Types\Output\LocationType::class,
         \App\GraphQL\Types\Output\EventTypeType::class,
+        \App\GraphQL\Types\Output\EventMemberType::class,
 
         //Enum
         \App\GraphQL\Type\Enum\EventTypeEnum::class,

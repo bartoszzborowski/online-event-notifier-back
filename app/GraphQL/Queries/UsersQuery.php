@@ -4,11 +4,14 @@ namespace App\GraphQL\Queries;
 
 use App\GraphQL\Types\Output\UserType;
 use App\Models\Event;
+use App\Models\User;
 use Closure;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
+use Illuminate\Support\Arr;
 use Rebing\GraphQL\Support\Query;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UsersQuery extends Query
 {
@@ -24,21 +27,27 @@ class UsersQuery extends Query
     public function args(): array
     {
         return [
-            'id' => ['name' => 'id', 'type' => Type::string()],
+            'id' => ['name' => 'id', 'type' => Type::Int()],
             'email' => ['name' => 'email', 'type' => Type::string()]
         ];
     }
 
     public function resolve($root, $args, $context, ResolveInfo $resolveInfo, Closure $getSelectFields)
     {
-//        if (isset($args['id'])) {
-//            return User::where('id' , $args['id'])->get();
-//        }
-//
-//        if (isset($args['email'])) {
-//            return User::where('email', $args['email'])->get();
-//        }
 
-        return Event::all();
+        $id = Arr::get($args, 'userId');
+
+
+      
+
+        if((!empty(JWTAuth::user()) and (JWTAuth::user()->getAdmin())) and $id){
+             return User::whereId($id)->get();
+        }
+
+        if(!empty(JWTAuth::user()) and ( JWTAuth::user()->getAdmin())){
+            return User::all();
+        }
+         throw new \Exception('You shouldn\'t be here');
+        
     }
 }

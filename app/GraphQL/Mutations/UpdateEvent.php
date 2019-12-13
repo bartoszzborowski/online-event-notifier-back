@@ -42,18 +42,12 @@ class UpdateEvent extends BaseMutation
     public function resolve($root, $args)
     {
         $args = Arr::get($args, 'input');
-<<<<<<< HEAD
-        $Event= Event::findOrFail($args['id']);
-        if($Event->user_id == JWTAuth::user()->id or JWTAuth::user()->getAdmin()){
-            return $Event->update($args); //tu cos musze zmienic aby nie wyrzucalo errora po dobrej zmianie
-=======
         /** @var Event $event */
         $event= Event::find($args['id']);
         if($event->update($args)){
              $event->update($args);
              $event->refresh();
              return $event;
->>>>>>> 0e515deffdbe02a046794131be106a8e137031a2
         }else{
             throw new \Exception('Error:1 during update event');
         }

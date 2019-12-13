@@ -28,6 +28,14 @@ class UserType extends GraphQLType
                 'type' => Type::string(),
                 'description' => 'The email of user',
             ],
+            'name' => [
+                'type' => Type::string(),
+                'description' => 'The name of user',
+            ],
+            'surname' => [
+                'type' => Type::string(),
+                'description' => 'The surname of user',
+            ],
             'admin' => [
                 'type' => Type::boolean()
             ],

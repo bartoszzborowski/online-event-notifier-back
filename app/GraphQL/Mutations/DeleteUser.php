@@ -29,13 +29,13 @@ class DeleteUser extends Mutation
 
     public function type(): GraphqlType
     {
-        return GraphqlType::int();
+        return GraphqlType::boolean();
     }
 
     public function args(): array
     {
         return [
-            ['name' => 'users_id', 'type' => GraphqlType::listOf(Type::int())]
+            ['name' => 'users_id', 'type' => Type::int()]
         ];
     }
 
@@ -48,11 +48,10 @@ class DeleteUser extends Mutation
 
     public function resolve($root, $args)
     {
-
-        $user = User::find($args['users_id'])->first();
-        // dd($user);
+        /** @var User $user */
+        $user = User::whereId($args['users_id'])->first();
         if($user->id == JWTAuth::user()->id or JWTAuth::user()->getAdmin()){
-              return $user->update([
+              $user->update([
                     'name' =>'Usuniety',
                     'surname' => 'Usuniety',
                     'email' => 'Usuniety@'.Carbon::now()->toDateTimeString().'.pl',
@@ -61,6 +60,13 @@ class DeleteUser extends Mutation
                     'password' => Hash::make('usuniety123'),
                   ]
               );
+
+            try {
+                $user->delete();
+                return true;
+            } catch (\Exception $e) {
+                return false;
+            }
         }else{
             throw new \Exception('Error:1 during delete user');
         }

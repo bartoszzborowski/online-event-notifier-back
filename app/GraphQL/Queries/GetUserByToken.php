@@ -20,7 +20,7 @@ class GetUserByToken extends BaseMutation
         return GraphQL::type(UserType::TYPE_NAME);
     }
 
-    public function resolve($root, $args, $context, ResolveInfo $resolveInfo, Closure $getSelectFields)
+    public function resolve($root, $args, $context, ResolveInfo $resolveinfo, Closure $getSelectFields)
     {
         if($this->currentUser) {
             return $this->currentUser;

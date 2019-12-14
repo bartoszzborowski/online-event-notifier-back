@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Models\User;
+use App\Models\Event;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 class EventRepository extends BaseRepository
@@ -14,6 +14,6 @@ class EventRepository extends BaseRepository
      */
     public function model()
     {
-        return User::class;
+        return Event::class;
     }
 }

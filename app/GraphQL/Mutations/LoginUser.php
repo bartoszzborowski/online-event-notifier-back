@@ -70,6 +70,6 @@ class LoginUser extends Mutation
 
             return $user;
         }
-        throw new \Exception('Error login');
+        throw new \Exception('Invalid credentials for user');
     }
 }

@@ -50,7 +50,6 @@ class CreateUser extends Mutation
             $input . UserInputType::FIELD_NAME => ['required'],
             $input . UserInputType::FIELD_SURNAME => ['required'],
             $input . UserInputType::FIELD_EMAIL => ['required', 'email'],
-            // $input . UserInputType::FIELD_BASE_CITY => ['required'],
             $input . UserInputType::FIELD_PASSWORD => ['required']
         ];
     }
@@ -58,17 +57,20 @@ class CreateUser extends Mutation
     public function resolve($root, $args)
     {
         $args = Arr::get($args, 'input');
-         User::create([
+
+        $user = User::create([
             'name' => $args['name'],
             'surname' => $args['surname'],
             'email' => $args['email'],
-            // 'base_city' => $args['base_city'],
-            'base_city' => "1",
-            'admin'=> "0",
-            'password' => Hash::make($args['password']),
+            'base_city' => $args['base_city'],
+            'admin'=> $args['admin'],
+            'password' => bcrypt($args['password']),
         ]);
-        return User::whereEmail($args['email']);
 
-        throw new \Exception('Register not successful');
+        if($user) {
+            return $user;
+        } else {
+            throw new \Exception('Register not successful');
+        }
     }
 }

@@ -39,7 +39,7 @@ class UpdateUser extends CreateUser
 
 
         if($user->id == JWTAuth::user()->id or JWTAuth::user()->getAdmin()){
-            (isset($args['admin'])) ? $args['admin']=true : $args['admin']=false;
+            (isset($args['admin']) and ($args['admin']==true)) ? $args['admin']=true : $args['admin']=false;
             (isset($args['password'])) ? $args['password']=Hash::make($args['password']) :null;
                 $user->update($args);
                 $user->refresh();

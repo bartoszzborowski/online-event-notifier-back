@@ -35,11 +35,11 @@ class UsersQuery extends Query
     public function resolve($root, $args, $context, ResolveInfo $resolveInfo, Closure $getSelectFields)
     {
 
-        $id = Arr::get($args, 'userId');
-
+        $id = Arr::get($args, 'id');
+        $email = Arr::get($args, 'email');
 
         if ((!empty(JWTAuth::user()) and (JWTAuth::user()->getAdmin())) and isset($args['email'])) {
-            return User::whereEmail($args['email'])->get();
+            return User::whereEmail($email)->get();
         }
 
         if((!empty(JWTAuth::user()) and (JWTAuth::user()->getAdmin())) and $id){

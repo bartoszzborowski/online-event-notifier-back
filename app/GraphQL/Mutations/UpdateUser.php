@@ -34,7 +34,7 @@ class UpdateUser extends CreateUser
     public function resolve($root, $args)
     {
         $args = Arr::get($args, 'input');
-        $user = User::find($args['id'])->first();
+        $user = User::whereId($args['id'])->first();
 
 
         if($user->id == JWTAuth::user()->id or JWTAuth::user()->getAdmin()){

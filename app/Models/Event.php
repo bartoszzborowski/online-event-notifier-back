@@ -55,7 +55,9 @@ class Event extends Model
         'name',
         'description',
         'fee',
-        'event_date'
+        'event_date',
+        'lat',
+        'lng',
     ];
 
     public function user(): HasOne

@@ -53,6 +53,8 @@ class CreateEvent extends BaseMutation
             $input . EventInputType::FIELD_DESCRIPTION => ['required'],
             $input . EventInputType::FIELD_CITY_ID => ['required'],
             $input . EventInputType::FIELD_ADDRESS => ['required'],
+            $input . EventInputType::FIELD_LAT => ['required'],
+            $input . EventInputType::FIELD_LNG => ['required'],
         ];
     }
 

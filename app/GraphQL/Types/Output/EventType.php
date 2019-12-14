@@ -48,7 +48,14 @@ class EventType extends GraphQLType
             ],
             'attendance_counter' => [
                 'type' => Type::int(),
-            ]
+            ],
+            'lat' => [
+                'type' => Type::float()
+            ],
+            'lng' => [
+                'type' => Type::float()
+            ],
+            
 
         ];
     }

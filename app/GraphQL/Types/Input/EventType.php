@@ -22,6 +22,9 @@ class EventType extends GraphQLType
     const FIELD_FEE = 'fee';
     const FIELD_NAME = 'name';
     const FIELD_USER_ID = 'user_id';
+    const FIELD_LAT= 'lat';
+    const FIELD_LNG= 'lng';
+
 
     protected $inputObject = true;
 
@@ -56,6 +59,12 @@ class EventType extends GraphQLType
             ],
             self::FIELD_NAME => [
                 'type' => Type::string()
+            ],
+            self::FIELD_LAT => [
+                'type' => Type::float()
+            ],
+            self::FIELD_LNG => [
+                'type' => Type::float()
             ],
         ];
     }

@@ -42,6 +42,10 @@ class Event extends Model
 {
     protected $table = Database::EVENTS;
 
+    protected $dates = [
+        'event_date'
+    ];
+
     protected $casts = [
         'event_date' => 'datetime',
         'fee' => 'float',

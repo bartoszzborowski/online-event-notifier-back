@@ -5,6 +5,7 @@ use App\Constants\GraphQL as GraphQLConstant;
 use App\GraphQL\BaseMutation;
 use App\GraphQL\Types\Input\UpdateEventType;
 use App\GraphQL\Types\Output\EventType;
+use Carbon\Carbon;
 use GraphQL\Error\Error;
 use GraphQL\Type\Definition\Type as GraphqlType;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -44,7 +45,8 @@ class UpdateEvent extends BaseMutation
     {
         $args = Arr::get($args, 'input');
         /** @var Event $event */
-        $event= Event::find($args['id']);
+        $event = Event::find($args['id']);
+        $args['event_date'] = Carbon::parse($args['event_date'])->setTimezone('UTC')->format('Y-m-d H:i:s');
         if($event->update($args)){
              $event->update($args);
              $event->refresh();

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Constants\Database;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
@@ -66,7 +68,12 @@ class Event extends Model
         return $this->hasOne(Database::EVENT_TYPES);
     }
 
-    public function members()
+    public function members(): HasMany
+    {
+        return $this->hasMany(EventMember::class);
+    }
+
+    public function userMembers(): HasManyThrough
     {
         return $this->hasManyThrough(EventMember::class, User::class);
     }

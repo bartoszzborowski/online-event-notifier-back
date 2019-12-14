@@ -3,7 +3,6 @@
 namespace App\GraphQL\Queries;
 
 use App\GraphQL\Types\Output\UserType;
-use App\Models\Event;
 use App\Models\User;
 use Closure;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -38,7 +37,9 @@ class UsersQuery extends Query
         $id = Arr::get($args, 'userId');
 
 
-      
+        if ((!empty(JWTAuth::user()) and (JWTAuth::user()->getAdmin())) and isset($args['email'])) {
+            return User::whereEmail($args['email'])->get();
+        }
 
         if((!empty(JWTAuth::user()) and (JWTAuth::user()->getAdmin())) and $id){
              return User::whereId($id)->get();

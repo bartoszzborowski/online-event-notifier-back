@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
@@ -114,4 +115,19 @@ class User extends Authenticatable implements JWTSubject
         return $this->admin;
     }
 
+    public function eventMembers()
+    {
+        return $this->hasMany(EventMember::class);
+    }
+
+    public function events(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Event::class,
+            EventMember::class,
+            'user_id',
+            'id',
+            'id',
+            'event_id');
+    }
 }

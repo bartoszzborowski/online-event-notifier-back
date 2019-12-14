@@ -35,6 +35,6 @@ class EventMember extends Model
 
     public function event(): HasOne
     {
-        return  $this->hasOne(Database::EVENTS);
+        return  $this->hasOne(Event::class, 'id', 'event_id');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
@@ -51,6 +52,7 @@ class User extends Authenticatable implements JWTSubject
 {
     use LaratrustUserTrait;
     use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -109,7 +111,7 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->email;
     }
-    
+
     public function getAdmin()
     {
         return $this->admin;

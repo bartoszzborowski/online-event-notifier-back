@@ -6,6 +6,7 @@ use App\GraphQL\Types\Input\UserLoginType;
 use App\GraphQL\Types\Output\UserType;
 use App\Models\User;
 use App\Repository\UserRepository;
+use GraphQL\Error\Error;
 use Illuminate\Support\Arr;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use GraphQL\Type\Definition\Type as GraphqlType;
@@ -52,7 +53,7 @@ class LoginUser extends Mutation
     /**
      * @param $root
      * @param $args
-     * @return User
+     * @return Error
      * @throws \Exception
      */
     public function resolve($root, $args)
@@ -70,6 +71,6 @@ class LoginUser extends Mutation
 
             return $user;
         }
-        throw new \Exception('Invalid credentials for user');
+        return new Error('Invalid credentials for user');
     }
 }

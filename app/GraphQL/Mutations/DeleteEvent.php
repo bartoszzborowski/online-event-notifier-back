@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Repository\UserRepository;
+use GraphQL\Error\Error;
 use GraphQL\Type\Definition\Type as GraphqlType;
 use Rebing\GraphQL\Support\Mutation;
 use GraphQL\Type\Definition\Type;
@@ -49,14 +50,13 @@ class DeleteEvent extends Mutation
 
 
         $event = Event::whereId($args['event_id'])->first();
-        // dd($event);
         if($event->user_id == JWTAuth::user()->id or JWTAuth::user()->getAdmin()){
         try {
             return $event->delete();
         } catch (\Exception $e) {
-            throw new \Exception('Error during delete event');
+            return new Error('Error during delete event');
         }
     }
-        throw new \Exception('Error:2 during delete event');
+        return new Error('Error:2 during delete event');
     }
 }

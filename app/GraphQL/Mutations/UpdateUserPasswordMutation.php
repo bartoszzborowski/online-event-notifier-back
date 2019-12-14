@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations;
 use App\GraphQL\Types\Output\UserType;
 use CLosure;
 use App\Models\User;
+use GraphQL\Error\Error;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\ResolveInfo;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -45,8 +46,12 @@ class UpdateUserPasswordMutation extends Mutation
         }
 
         $user->password = bcrypt($args['password']);
-        $user->save();
 
-        return $user;
+        if($user->save()) {
+            return $user;
+        } else {
+            return new Error('Error:1 during update event');
+
+        }
     }
 }

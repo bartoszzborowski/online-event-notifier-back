@@ -6,6 +6,7 @@ use App\Constants\GraphQL as GraphQLConstant;
 use App\GraphQL\Types\Input\UserType as UserInputType;
 use App\GraphQL\Types\Output\UserType;
 use App\Repository\UserRepository;
+use GraphQL\Error\Error;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use GraphQL\Type\Definition\Type as GraphqlType;
 use Rebing\GraphQL\Support\Mutation;
@@ -70,7 +71,7 @@ class CreateUser extends Mutation
         if($user) {
             return $user;
         } else {
-            throw new \Exception('Register not successful');
+            return new Error('Register not successful');
         }
     }
 }

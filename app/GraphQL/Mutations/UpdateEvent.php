@@ -5,6 +5,7 @@ use App\Constants\GraphQL as GraphQLConstant;
 use App\GraphQL\BaseMutation;
 use App\GraphQL\Types\Input\UpdateEventType;
 use App\GraphQL\Types\Output\EventType;
+use GraphQL\Error\Error;
 use GraphQL\Type\Definition\Type as GraphqlType;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use App\Models\Event;
@@ -49,8 +50,7 @@ class UpdateEvent extends BaseMutation
              $event->refresh();
              return $event;
         }else{
-            throw new \Exception('Error:1 during update event');
+            return new Error('Error:1 during update event');
         }
-        throw new \Exception('Error:2 during update event');
     }
 }

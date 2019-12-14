@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations;
 use App\Models\User;
 use App\Repository\UserRepository;
 use Carbon\Carbon;
+use GraphQL\Error\Error;
 use GraphQL\Type\Definition\Type as GraphqlType;
 use Rebing\GraphQL\Support\Mutation;
 use GraphQL\Type\Definition\Type;
@@ -68,8 +69,7 @@ class DeleteUser extends Mutation
                 return false;
             }
         }else{
-            throw new \Exception('Error:1 during delete user');
+            return new Error('Error:1 during delete user');
         }
-        throw new \Exception('Error:2 delete user ');
     }
 }

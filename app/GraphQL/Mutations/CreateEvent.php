@@ -6,6 +6,7 @@ use App\GraphQL\BaseMutation;
 use App\GraphQL\Types\Input\EventType as EventInputType;
 use App\GraphQL\Types\Output\EventType;
 use App\Repository\EventRepository;
+use GraphQL\Error\Error;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use GraphQL\Type\Definition\Type as GraphqlType;
 use Illuminate\Support\Arr;
@@ -65,8 +66,7 @@ class CreateEvent extends BaseMutation
         if($created = Event::create($args)){
             return $created;
         }else{
-            throw new \Exception('Error:1 during create event');
+            return new Error('Error:1 during create event');
         }
-        throw new \Exception('Error:2 during create event');
     }
 }

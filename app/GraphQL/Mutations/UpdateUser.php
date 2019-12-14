@@ -6,6 +6,7 @@ use App\Constants\GraphQL as GraphQLConstant;
 use App\GraphQL\Types\Input\UpdateUserType;
 use App\Models\User;
 use Carbon\Carbon;
+use GraphQL\Error\Error;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -43,15 +44,8 @@ class UpdateUser extends CreateUser
                 $user->update($args);
                 $user->refresh();
               return $user;
-            //   return $user->update([
-            //     'name' => $args['name'],
-            //     // 'surname' => $args['surname'],
-            //     'email' => $args['email'],
-            //     // 'password' => Hash::make($args['password']),
-            //   ]);
         }else{
-            throw new \Exception('Error:1 during update user');
+            return new Error('Error:1 during update user');
         }
-        throw new \Exception('Error:2 update user ');
     }
 }

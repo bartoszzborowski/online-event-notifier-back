@@ -8,6 +8,7 @@ use App\GraphQL\Types\Output\EventMemberType;
 use App\Models\Event;
 use App\Models\EventMember;
 use App\Repository\EventRepository;
+use GraphQL\Error\Error;
 use GraphQL\Type\Definition\Type;
 use Illuminate\Support\Facades\DB;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -65,11 +66,11 @@ class AttendToEvent extends BaseMutation
         $event = Event::whereId($eventId)->get()->first();
 
         if($event->user_id === $userId) {
-            throw new \Exception("Can't attend to your own event");
+            return new Error('Can\'t attend to your own event');
         }
 
         if($result->isNotEmpty()) {
-            throw new \Exception('The user is already registered for the event');
+            return new Error('The user is already registered for the event');
         }
 
         $eventMember = new EventMember();
@@ -79,7 +80,7 @@ class AttendToEvent extends BaseMutation
         if ($eventMember->save()) {
             return $eventMember;
         } else {
-            throw new \Exception('Error during create event member');
+            return new Error('Error during create event member');
         }
     }
 }

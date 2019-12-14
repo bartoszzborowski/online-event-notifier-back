@@ -5,6 +5,7 @@ namespace App\GraphQL\Queries;
 use App\GraphQL\Types\Output\UserType;
 use App\Models\User;
 use Closure;
+use GraphQL\Error\Error;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
@@ -48,7 +49,7 @@ class UsersQuery extends Query
         if(!empty(JWTAuth::user()) and ( JWTAuth::user()->getAdmin())){
             return User::all();
         }
-         throw new \Exception('You shouldn\'t be here');
-        
+
+        return new Error("You shouldn't be here");
     }
 }

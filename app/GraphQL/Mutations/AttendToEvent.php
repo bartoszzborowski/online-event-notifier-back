@@ -56,8 +56,7 @@ class AttendToEvent extends BaseMutation
     {
         $eventId = Arr::get($args, 'event_id');
         $userId = Arr::get($args, 'user_id');
-        dump();;
-        dd();
+
         $result = DB::table(Database::EVENT_MEMBERS)
             ->where('event_id', '=', $eventId)
             ->where('user_id', '=', $userId)

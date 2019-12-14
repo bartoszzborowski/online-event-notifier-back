@@ -102,6 +102,7 @@ return [
                 \App\GraphQL\Queries\GetEvents::class,
                 \App\GraphQL\Queries\GetLocations::class,
                 \App\GraphQL\Queries\GetEventType::class,
+                \App\GraphQL\Queries\GetUserByToken::class,
             ],
             'mutation' => [
                 App\GraphQL\Mutations\UpdateUserPasswordMutation::class,

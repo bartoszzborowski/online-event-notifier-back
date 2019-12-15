@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Constants\Database;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
@@ -41,6 +42,17 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Event extends Model
 {
     protected $table = Database::EVENTS;
+
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Order by name ASC
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderBy('event_date', 'desc');
+        });
+    }
 
     protected $dates = [
         'event_date'

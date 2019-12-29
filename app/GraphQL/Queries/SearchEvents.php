@@ -49,7 +49,7 @@ class SearchEvents extends BaseMutation
         $where = [];
 
         if($id) {
-            $where['id'] = $date;
+            $where['id'] = $id;
         }
 
         if($name) {

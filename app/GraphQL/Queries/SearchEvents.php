@@ -6,7 +6,6 @@ use App\GraphQL\BaseMutation;
 use App\GraphQL\Type\Enum\CityTypeEnum;
 use App\GraphQL\Type\Enum\EventTypeEnum;
 use App\GraphQL\Types\Output\EventType;
-use App\Models\Event;
 use App\Repository\EventRepository;
 use Closure;
 use Illuminate\Support\Arr;
@@ -28,6 +27,7 @@ class SearchEvents extends BaseMutation
     public function args(): array
     {
         return [
+            'id' => ['name' => 'id', 'type' => Type::string()],
             'name' => ['name' => 'name', 'type' => Type::string()],
             'date' => ['name' => 'date', 'type' => Type::string()],
             'city_id' => ['name' => 'city_id', 'type' => GraphQL::type(CityTypeEnum::TYPE_NAME)],
@@ -40,6 +40,7 @@ class SearchEvents extends BaseMutation
     {
         /** @var EventRepository $eventRepository */
         $eventRepository = app(EventRepository::class);
+        $id = Arr::get($args, 'id');
         $name = Arr::get($args, 'name');
         $date = Arr::get($args, 'date');
         $cityId= Arr::get($args, 'city_id');
@@ -47,8 +48,12 @@ class SearchEvents extends BaseMutation
         $entryFee = Arr::get($args, 'entry_fee');
         $where = [];
 
+        if($id) {
+            $where['id'] = $date;
+        }
+
         if($name) {
-            $where[] = ['name', 'like', "{$name}"];
+            $where[] = ['name', 'like', (string)($name)];
         }
 
         if($date) {

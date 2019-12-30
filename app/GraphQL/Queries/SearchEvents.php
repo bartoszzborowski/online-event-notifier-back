@@ -53,7 +53,7 @@ class SearchEvents extends BaseMutation
         }
 
         if($name) {
-            $where[] = ['name', 'like', (string)($name)];
+            $where[] = ['name', 'like', "{$name}"];
         }
 
         if($date) {

@@ -54,6 +54,9 @@ class User extends Authenticatable implements JWTSubject
     use Notifiable;
     use SoftDeletes;
 
+    protected $attributes = [
+        'admin' => false
+    ];
     /**
      * The attributes that are mass assignable.
      *

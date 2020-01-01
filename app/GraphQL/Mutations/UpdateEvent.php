@@ -46,7 +46,10 @@ class UpdateEvent extends BaseMutation
         $args = Arr::get($args, 'input');
         /** @var Event $event */
         $event = Event::find($args['id']);
-        $args['event_date'] = Carbon::parse($args['event_date'])->setTimezone('UTC')->format('Y-m-d H:i:s');
+        if(!empty($args['event_date'])) {
+            $args['event_date'] = Carbon::parse($args['event_date'])->setTimezone('UTC')->format('Y-m-d H:i:s');
+        }
+
         if($event->update($args)){
              $event->update($args);
              $event->refresh();

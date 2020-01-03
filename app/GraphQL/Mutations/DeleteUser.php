@@ -2,18 +2,16 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\GraphQL\BaseMutation;
 use App\Models\User;
 use App\Repository\UserRepository;
 use Carbon\Carbon;
 use GraphQL\Error\Error;
 use GraphQL\Type\Definition\Type as GraphqlType;
-use Rebing\GraphQL\Support\Mutation;
 use GraphQL\Type\Definition\Type;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
-class DeleteUser extends Mutation
+class DeleteUser extends BaseMutation
 {
     const MUTATION_NAME = 'deleteUsers';
 
@@ -21,6 +19,7 @@ class DeleteUser extends Mutation
 
     public function __construct(UserRepository $userRepository)
     {
+        parent::__construct();
         $this->userRepository = $userRepository;
     }
 
@@ -51,7 +50,7 @@ class DeleteUser extends Mutation
     {
         /** @var User $user */
         $user = User::whereId($args['users_id'])->first();
-        if($user->id == JWTAuth::user()->id or JWTAuth::user()->getAdmin()){
+        if($user->id === $this->currentUser->id || $this->currentUser->getAdmin()){
               $user->update([
                     'name' =>'Usuniety',
                     'surname' => 'Usuniety',

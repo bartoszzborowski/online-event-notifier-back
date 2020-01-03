@@ -3,18 +3,17 @@
 namespace App\GraphQL\Mutations;
 
 use App\Constants\GraphQL as GraphQLConstant;
+use App\GraphQL\BaseMutation;
 use App\GraphQL\Types\Input\UserType as UserInputType;
 use App\GraphQL\Types\Output\UserType;
 use App\Repository\UserRepository;
 use GraphQL\Error\Error;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use GraphQL\Type\Definition\Type as GraphqlType;
-use Rebing\GraphQL\Support\Mutation;
 use Illuminate\Support\Arr;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 
-class CreateUser extends Mutation
+class CreateUser extends BaseMutation
 {
     const MUTATION_NAME = 'createUser';
 
@@ -22,6 +21,7 @@ class CreateUser extends Mutation
 
     public function __construct(UserRepository $userRepository)
     {
+        parent::__construct();
         $this->userRepository = $userRepository;
     }
 

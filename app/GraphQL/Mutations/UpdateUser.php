@@ -26,6 +26,7 @@ class UpdateUser extends CreateUser
             ['name' => GraphQLConstant::INPUT_ARG_NAME, 'type' => GraphQL::type(UpdateUserType::TYPE_NAME)]
         ];
     }
+
     public function rules(array $args = []): array
     {
         $input = GraphQLConstant::INPUT_ARG_NAME . '.';
@@ -37,14 +38,13 @@ class UpdateUser extends CreateUser
         $args = Arr::get($args, 'input');
         $user = User::whereId($args['id'])->first();
 
-
-        if($user->id == JWTAuth::user()->id or JWTAuth::user()->getAdmin()){
-            (isset($args['admin']) and ($args['admin']==true)) ? $args['admin']=true : $args['admin']=false;
-            (isset($args['password'])) ? $args['password']=Hash::make($args['password']) :null;
-                $user->update($args);
-                $user->refresh();
-              return $user;
-        }else{
+        if ($user->id === $this->currentUser->id || $this->currentUser->getAdmin()) {
+            (isset($args['admin']) and ($args['admin'] === true)) ? $args['admin'] = true : $args['admin'] = false;
+            (isset($args['password'])) ? $args['password'] = Hash::make($args['password']) : null;
+            $user->update($args);
+            $user->refresh();
+            return $user;
+        } else {
             return new Error('Error:1 during update user');
         }
     }
